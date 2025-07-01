@@ -14,7 +14,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     warnOnUnsupportedTypeScriptVersion: false,
   },
-  ignorePatterns: ['coverage/', 'node_modules/', '/*.*'],
+  ignorePatterns: ['coverage/', 'node_modules/', '/*.*', '.prettierrc.cjs', '*.config.js', '*.config.cjs'],
   rules: {
     'prettier/prettier': 'error',
     'no-underscore-dangle': 0,
@@ -25,7 +25,7 @@ module.exports = {
     '@typescript-eslint/no-throw-literal': 0,
     '@typescript-eslint/lines-between-class-members': 0,
     '@typescript-eslint/no-unused-vars': [1, { args: 'none' }],
-    '@typescript-eslint/no-unused-expressions': 'off',
+    '@typescript-eslint/no-unused-expressions': ['off'],
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.spec.ts'] }],
     '@typescript-eslint/naming-convention': [
       'error',

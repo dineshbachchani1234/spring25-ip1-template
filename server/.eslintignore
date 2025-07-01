@@ -1,0 +1,6 @@
+node_modules/
+coverage/
+.prettierrc.cjs
+*.config.js
+*.config.cjs
+jest.config.ts
