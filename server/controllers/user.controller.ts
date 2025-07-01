@@ -146,7 +146,7 @@ const userController = () => {
     }
   };
 
-  // Define routes for the user-related operations.
+  // Define routes for the user-related all operations.
   router.post('/signup', createUser);
   router.post('/login', userLogin);
   router.get('/:username', getUser);
