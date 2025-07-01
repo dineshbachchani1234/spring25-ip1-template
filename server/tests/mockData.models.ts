@@ -115,12 +115,12 @@ export const QUESTIONS: Question[] = [
 ];
 
 export const user: User = {
-  username: 'user1',
-  password: 'password',
-  dateJoined: new Date('2024-12-03'),
+  username: 'sana',
+  password: 'sanapassword',
+  dateJoined: new Date('2023-12-11'),
 };
 
 export const safeUser: SafeUser = {
-  username: 'user1',
-  dateJoined: new Date('2024-12-03'),
+  username: 'sana',
+  dateJoined: new Date('2023-12-11'),
 };

@@ -1,11 +1,11 @@
 module.exports = {
-  plugins: ['prettier', 'import', 'react'],
+  plugins: ['prettier', 'import'],
   root: true,
   extends: [
     'airbnb-base',
     'airbnb-typescript',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    '@typescript-eslint/recommended',
     'prettier',
   ],
   parserOptions: {
@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/no-throw-literal': 0,
     '@typescript-eslint/lines-between-class-members': 0,
     '@typescript-eslint/no-unused-vars': [1, { args: 'none' }],
+    '@typescript-eslint/no-unused-expressions': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.spec.ts'] }],
     '@typescript-eslint/naming-convention': [
       'error',

@@ -22,7 +22,7 @@ const addMessage = async (messageToAdd: Message): Promise<Message> => {
     messageToAdd,
   };
   const res = await api.post(`${MESSAGE_API_URL}/addMessage`, reqBody);
-  if (res.status !== 200) {
+  if (res.status !== 200 && res.status !== 201) {
     throw new Error('Error while adding a new message to a chat');
   }
   return res.data;

@@ -7,7 +7,8 @@ import { ObjectId } from 'mongodb';
  * - password - The user's password (stored in plain text)
  */
 export interface UserCredentials {
-  // TODO: Task 1 - Define the properties of the UserCredentials interface
+  username: string;
+  password: string;
 }
 
 /**
@@ -18,7 +19,8 @@ export interface UserCredentials {
  * - dateJoined - The date when the user registered
  */
 export interface User extends UserCredentials {
-  // TODO: Task 1 - Define the properties of the User interface
+  _id?: ObjectId;
+  dateJoined: Date;
 }
 
 /**
@@ -28,7 +30,10 @@ export interface User extends UserCredentials {
  * - password - The password submitted in the request
  */
 export interface UserRequest extends Request {
-  // TODO: Task 1 - Define the properties of the UserRequest interface
+  body: {
+    username: string;
+    password: string;
+  };
 }
 
 /**
@@ -37,7 +42,9 @@ export interface UserRequest extends Request {
  * - username - The username provided as a route parameter
  */
 export interface UserByUsernameRequest extends Request {
-  // TODO: Task 1 - Define the properties of the UserByUsernameRequest interface
+  params: {
+    username: string;
+  };
 }
 
 /**
