@@ -25,9 +25,8 @@ const messageController = (socket: FakeSOSocket) => {
    *
    * @returns `true` if the message is valid, otherwise `false`.
    */
-  const isMessageValid = (message: Message): boolean => {
-    return !!message && !!message.msg && !!message.msgFrom && !!message.msgDateTime;
-  };
+  const isMessageValid = (message: Message): boolean => !!message && !!message.msg && !!message.msgFrom && !!message.msgDateTime;
+
 
   /**
    * Handles adding a new message. The message is first validated and then saved.
