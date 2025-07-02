@@ -10,10 +10,10 @@ import { User, UserCredentials, UserResponse } from '../types/types';
 export const saveUser = async (user: User): Promise<UserResponse> => {
   try {
     const createdUser = await UserModel.create(user);
-    const { password: _password, ...safeUser } = createdUser.toObject();
+    const { password: unusedPassword, ...safeUser } = createdUser.toObject();
     return safeUser;
-  } catch (error) {
-    return { error: `Error when saving user: ${(error as Error).message}` };
+  } catch (e: unknown) {
+    return { error: (e as Error).message || 'Failed to save message' };
   }
 };
 
@@ -29,7 +29,7 @@ export const getUserByUsername = async (username: string): Promise<UserResponse>
     if (!user) {
       return { error: 'User not found' };
     }
-    const { password: _password, ...safeUser } = user;
+    const { password: unusedPassword, ...safeUser } = user;
     return safeUser;
   } catch (error) {
     return { error: `Error when saving user: ${(error as Error).message}` };

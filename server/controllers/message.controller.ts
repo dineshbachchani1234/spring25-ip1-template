@@ -25,8 +25,8 @@ const messageController = (socket: FakeSOSocket) => {
    *
    * @returns `true` if the message is valid, otherwise `false`.
    */
-  const isMessageValid = (message: Message): boolean => !!message && !!message.msg && !!message.msgFrom && !!message.msgDateTime;
-
+  const isMessageValid = (message: Message): boolean =>
+    !!message && !!message.msg && !!message.msgFrom && !!message.msgDateTime;
 
   /**
    * Handles adding a new message. The message is first validated and then saved.
@@ -42,7 +42,7 @@ const messageController = (socket: FakeSOSocket) => {
       res.status(400).json({ error: 'Invalid message body' });
       return;
     }
-    const messageToAdd = req.body.messageToAdd;
+    const { messageToAdd } = req.body;
     if (!isMessageValid(messageToAdd)) {
       res.status(400).json({ error: 'Invalid message object' });
       return;

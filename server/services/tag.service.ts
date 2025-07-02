@@ -90,7 +90,6 @@ export const processTags = async (tags: Tag[]): Promise<Tag[]> => {
   } catch (error: unknown) {
     // Log the error for debugging purposes
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-     
     console.log('An error occurred while adding tags:', errorMessage);
     return [];
   }

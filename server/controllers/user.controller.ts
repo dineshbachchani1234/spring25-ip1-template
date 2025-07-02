@@ -16,9 +16,7 @@ const userController = () => {
    * @param req The incoming request containing user data.
    * @returns `true` if the body contains valid user fields; otherwise, `false`.
    */
-  const isUserBodyValid = (req: UserRequest): boolean => {
-    return !!req.body.username && !!req.body.password;
-  };
+  const isUserBodyValid = (req: UserRequest): boolean => !!req.body.username && !!req.body.password;
 
   /**
    * Handles the creation of a new user account.
@@ -79,7 +77,7 @@ const userController = () => {
    * @returns A promise resolving to void.
    */
   const getUser = async (req: UserByUsernameRequest, res: Response): Promise<void> => {
-    const username = req.params.username;
+    const { username } = req.params;
     if (!username) {
       res.status(400).json({ error: 'Username parameter is required.' });
       return;
