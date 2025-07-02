@@ -12,8 +12,8 @@ export const saveMessage = async (message: Message): Promise<MessageResponse> =>
   try {
     const saved = await MessageModel.create(message);
     return saved.toObject ? saved.toObject() : saved;
-  } catch (e: any) {
-    return { error: e.message || 'Failed to save message' };
+  } catch (e: unknown) {
+    return { error: (e as Error).message || 'Failed to save message' };
   }
 };
 
