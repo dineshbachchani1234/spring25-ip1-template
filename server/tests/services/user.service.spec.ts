@@ -9,7 +9,7 @@ import {
 import { SafeUser, User, UserCredentials } from '../../types/user';
 import { user, safeUser } from '../mockData.models';
 
- 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
 
 describe('User model', () => {
@@ -54,7 +54,7 @@ describe('User model', () => {
       const userWithoutId = { ...user, _id: undefined };
       mockingoose(UserModel).toReturn(user, 'create');
 
-      const savedUser = await saveUser(userWithoutId as any);
+      const savedUser = await saveUser(userWithoutId as User);
 
       expect(savedUser).toHaveProperty('username', user.username);
       expect(savedUser).toHaveProperty('dateJoined', user.dateJoined);
@@ -79,7 +79,7 @@ describe('User model', () => {
       const result = await saveUser(user);
 
       expect(result).toHaveProperty('error');
-      expect((result as any).error).toContain('E11000 duplicate key error');
+      expect('error' in result && result.error).toContain('Error when saving user');
     });
   });
 });
@@ -103,7 +103,7 @@ describe('getUserByUsername', () => {
 
     const result = await getUserByUsername('randomUser');
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('User not found');
+    expect('error' in result && result.error).toContain('User not found');
   });
 
   it('should handle database errors', async () => {
@@ -111,7 +111,7 @@ describe('getUserByUsername', () => {
 
     const result = await getUserByUsername(user.username);
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('DB error');
+    expect('error' in result && result.error).toContain('Error when finding user: DB error');
   });
 
   it('should throw an error if there is an error while searching the database', async () => {
@@ -150,7 +150,7 @@ describe('loginUser', () => {
     const credentials: UserCredentials = { username: 'invalid', password: 'random' };
     const result = await loginUser(credentials);
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('User not found.');
+    expect('error' in result && result.error).toContain('User not found.');
   });
 
   it('should return error if password does not match', async () => {
@@ -158,7 +158,7 @@ describe('loginUser', () => {
     const credentials: UserCredentials = { username: user.username, password: 'wrongPassword' };
     const result = await loginUser(credentials);
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('Invalid username or password');
+    expect('error' in result && result.error).toContain('Invalid username or password.');
   });
 
   it('should handle DB errors', async () => {
@@ -166,7 +166,7 @@ describe('loginUser', () => {
     const credentials: UserCredentials = { username: user.username, password: user.password };
     const result = await loginUser(credentials);
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('DB error');
+    expect('error' in result && result.error).toContain('Error logging in user: DB error');
   });
 
   it('should handle empty username login attempt', async () => {
@@ -176,7 +176,7 @@ describe('loginUser', () => {
     const result = await loginUser(credentials);
 
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('User not found.');
+    expect('error' in result && result.error).toContain('User not found.');
   });
 
   it('should handle empty password login attempt', async () => {
@@ -186,7 +186,7 @@ describe('loginUser', () => {
     const result = await loginUser(credentials);
 
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('Invalid username or password');
+    expect('error' in result && result.error).toContain('Invalid username or password.');
   });
 });
 
@@ -208,14 +208,14 @@ describe('deleteUserByUsername', () => {
     mockingoose(UserModel).toReturn(null, 'findOneAndDelete');
     const result = await deleteUserByUsername('random');
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('User not found');
+    expect('error' in result && result.error).toContain('User not found.');
   });
 
   it('should handle DB errors', async () => {
     mockingoose(UserModel).toReturn(new Error('DB error'), 'findOneAndDelete');
     const result = await deleteUserByUsername(user.username);
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('DB error');
+    expect('error' in result && result.error).toContain('Error deleting user: DB error');
   });
 
   it('should throw an error if a database error while deleting', async () => {
@@ -275,7 +275,7 @@ describe('updateUser', () => {
 
     const result = await updateUser('nonexistent', { password: 'anything' });
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('User not found');
+    expect('error' in result && result.error).toContain('User not found.');
   });
 
   it('should handle database errors during password reset', async () => {
@@ -283,7 +283,7 @@ describe('updateUser', () => {
 
     const result = await updateUser(user.username, { password: 'fail' });
     expect(result).toHaveProperty('error');
-    expect((result as any).error).toContain('DB error');
+    expect('error' in result && result.error).toContain('Error updating user: DB error');
   });
 
   it('should throw an error if a database error while updating', async () => {

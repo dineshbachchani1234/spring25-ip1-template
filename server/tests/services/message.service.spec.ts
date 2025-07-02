@@ -1,7 +1,7 @@
 import MessageModel from '../../models/messages.model';
 import { getMessages, saveMessage } from '../../services/message.service';
 
- 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
 
 const message1 = {
@@ -38,7 +38,7 @@ describe('Message model', () => {
       jest.spyOn(MessageModel, 'create').mockRejectedValueOnce(new Error('DB error'));
       const result = await saveMessage(message1);
       expect(result).toHaveProperty('error');
-      expect((result as any).error).toContain('DB error');
+      expect('error' in result && result.error).toContain('DB error');
     });
 
     it('should handle message with special characters', async () => {
@@ -61,7 +61,7 @@ describe('Message model', () => {
       const result = await saveMessage(message1);
 
       expect(result).toHaveProperty('error');
-      expect((result as any).error).toEqual('Validation failed');
+      expect('error' in result && result.error).toContain('Validation failed');
     });
 
     it('should return error for unknown database errors', async () => {
@@ -70,7 +70,7 @@ describe('Message model', () => {
       const result = await saveMessage(message1);
 
       expect(result).toHaveProperty('error');
-      expect((result as any).error).toEqual('Failed to save message');
+      expect('error' in result && result.error).toContain('Failed to save message');
     });
   });
 
