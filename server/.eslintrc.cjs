@@ -1,6 +1,5 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  plugins: ['prettier', 'import', '@typescript-eslint'],
+  plugins: ['prettier', 'import', 'react'],
   root: true,
   extends: [
     'airbnb-base',
@@ -14,7 +13,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     warnOnUnsupportedTypeScriptVersion: false,
   },
-  ignorePatterns: ['coverage/', 'node_modules/', '/*.*', '.prettierrc.cjs', '*.config.js', '*.config.cjs'],
+  ignorePatterns: ['coverage/', 'node_modules/', '/*.*'],
   rules: {
     'prettier/prettier': 'error',
     'no-underscore-dangle': 0,
@@ -22,11 +21,9 @@ module.exports = {
     'no-restricted-syntax': 0,
     'no-plusplus': 0,
     'class-methods-use-this': 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts"] }],
     '@typescript-eslint/no-throw-literal': 0,
     '@typescript-eslint/lines-between-class-members': 0,
     '@typescript-eslint/no-unused-vars': [1, { args: 'none' }],
-    '@typescript-eslint/no-unused-expressions': ['off'],
     'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.spec.ts'] }],
     '@typescript-eslint/naming-convention': [
       'error',
