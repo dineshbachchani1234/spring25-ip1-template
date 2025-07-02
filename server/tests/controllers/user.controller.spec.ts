@@ -302,18 +302,11 @@ describe('Test userController', () => {
     it('should return the user given correct arguments', async () => {
       getUserByUsernameSpy.mockResolvedValueOnce(mockSafeUser);
 
-      const response = await supertest(app).get(`/user/getUser/${mockUser.username}`);
+      const response = await supertest(app).get(`/user/${mockUser.username}`);
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockUserJSONResponse);
       expect(getUserByUsernameSpy).toHaveBeenCalledWith(mockUser.username);
-    });
-
-    it('should return 404 if username not provided', async () => {
-      // Express automatically returns 404 for missing parameters when
-      // defined as required in the route
-      const response = await supertest(app).get('/user/getUser/');
-      expect(response.status).toBe(404);
     });
 
     it('should return 404 for non-existent username', async () => {
