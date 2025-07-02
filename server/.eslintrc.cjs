@@ -22,6 +22,7 @@ module.exports = {
     'no-restricted-syntax': 0,
     'no-plusplus': 0,
     'class-methods-use-this': 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     '@typescript-eslint/no-throw-literal': 0,
     '@typescript-eslint/lines-between-class-members': 0,
     '@typescript-eslint/no-unused-vars': [1, { args: 'none' }],
