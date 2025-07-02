@@ -10,10 +10,10 @@ import { User, UserCredentials, UserResponse } from '../types/types';
 export const saveUser = async (user: User): Promise<UserResponse> => {
   try {
     const createdUser = await UserModel.create(user);
-    const { password:_, ...safeUser } = createdUser.toObject();
+    const { password: _password, ...safeUser } = createdUser.toObject();
     return safeUser;
   } catch (error) {
-    return { error: 'Error when saving user: ' + (error as Error).message };
+    return { error: `Error when saving user: ${(error as Error).message}` };
   }
 };
 
@@ -29,10 +29,10 @@ export const getUserByUsername = async (username: string): Promise<UserResponse>
     if (!user) {
       return { error: 'User not found' };
     }
-    const { password, ...safeUser } = user;
+    const { password: _password, ...safeUser } = user;
     return safeUser;
   } catch (error) {
-    return { error: 'Error when finding user: ' + (error as Error).message };
+    return { error: `Error when saving user: ${(error as Error).message}` };
   }
 };
 
@@ -54,7 +54,7 @@ export const loginUser = async (loginCredentials: UserCredentials): Promise<User
     const { password, ...safeUser } = user.toObject();
     return safeUser;
   } catch (error) {
-    return { error: 'Error logging in user: ' + (error as Error).message };
+    return { error: `Error logging in user saving user: ${(error as Error).message}` };
   }
 };
 
@@ -73,7 +73,7 @@ export const deleteUserByUsername = async (username: string): Promise<UserRespon
     const { password, ...safeUser } = deletedUser;
     return safeUser;
   } catch (error) {
-    return { error: 'Error deleting user: ' + (error as Error).message };
+    return { error: `Error deleting user: ${(error as Error).message}` };
   }
 };
 
@@ -99,6 +99,6 @@ export const updateUser = async (
     const { password, ...safeUser } = updatedUser;
     return safeUser;
   } catch (error) {
-    return { error: 'Error updating user: ' + (error as Error).message };
+    return { error: `Error updating user: ${(error as Error).message}` };
   }
 };

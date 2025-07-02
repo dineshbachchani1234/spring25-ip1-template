@@ -3,7 +3,6 @@ import { saveComment, addComment } from '../../services/comment.service';
 import { Answer, Question, Comment } from '../../types/types';
 import AnswerModel from '../../models/answers.model';
 import { QUESTIONS, ans1, com1 } from '../mockData.models';
- 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mockingoose = require('mockingoose');
 
