@@ -67,7 +67,7 @@ describe('User model', () => {
 
       expect('error' in saveError).toBe(true);
       if ('error' in saveError) {
-        expect(saveError.error).toContain('Error when saving user');
+        expect(saveError.error).toContain('Database error');
       }
     });
 
@@ -79,7 +79,7 @@ describe('User model', () => {
       const result = await saveUser(user);
 
       expect(result).toHaveProperty('error');
-      expect('error' in result && result.error).toContain('Error when saving user');
+      expect('error' in result && result.error).toContain('E11000 duplicate key error');
     });
   });
 });
@@ -111,7 +111,7 @@ describe('getUserByUsername', () => {
 
     const result = await getUserByUsername(user.username);
     expect(result).toHaveProperty('error');
-    expect('error' in result && result.error).toContain('Error when finding user: DB error');
+    expect('error' in result && result.error).toContain('Error when saving user: DB error');
   });
 
   it('should throw an error if there is an error while searching the database', async () => {
@@ -121,7 +121,7 @@ describe('getUserByUsername', () => {
 
     expect('error' in getUserError).toBe(true);
     if ('error' in getUserError) {
-      expect(getUserError.error).toContain('Error when finding user');
+      expect(getUserError.error).toContain('Error when saving user: Error finding document');
     }
   });
 });
@@ -166,7 +166,9 @@ describe('loginUser', () => {
     const credentials: UserCredentials = { username: user.username, password: user.password };
     const result = await loginUser(credentials);
     expect(result).toHaveProperty('error');
-    expect('error' in result && result.error).toContain('Error logging in user: DB error');
+    expect('error' in result && result.error).toContain(
+      'Error logging in user saving user: DB error',
+    );
   });
 
   it('should handle empty username login attempt', async () => {
